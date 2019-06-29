@@ -6,7 +6,7 @@ PROGRAM       = c-webserv
 all: main
 
 main: main.o response.o route.o
-	gcc -o $(PROGRAM) main.o response.o route.o $(CFLAGS)
+	gcc -o ../bin/$(PROGRAM) main.o response.o route.o $(CFLAGS)
 
 main.o: main.c
 	gcc -c main.c
@@ -19,4 +19,4 @@ route.o: route.c
 
 .PHONY: clean
 clean:
-	rm -rf *.o $(PROGRAM)
+	rm -rf *.o ../bin/$(PROGRAM)

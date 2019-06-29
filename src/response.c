@@ -23,7 +23,7 @@ void http(int sockfd) {
         uri_file = uri_addr + 1;
         fprintf(stdout, "uri_file:%s",uri_file);
 
-        if ((read_fd = open("../index.html", O_RDONLY, 0666)) == -1) {
+        if ((read_fd = open("index.html", O_RDONLY, 0666)) == -1) {
              send_msg(sockfd, "404 Not Found");
              close(read_fd);
         }
