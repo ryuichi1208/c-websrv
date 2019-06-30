@@ -1,22 +1,12 @@
-CC            = gcc
-CFLAGS        = -O4 -Wall -I/usr/local/include
-PROGRAM       = c-webserv
+PROGRAM = websrv
+TARGET  = ../bin
+OBJS    = main.o response.o route.o
+SRCS    = $(OBJS:%.o=%.c)
+CC      = gcc
+CFLGAS  = -g -Wall -Wextra
 
-.PHONY: all
-all: main
+$(PROGRAM):$(OBJS)
+	$(CC) $(CFLGAS) $(LDFLAGS) -o $(TARGET)/$(PROGRAM) $(OBJS) $(LDLIBS)
 
-main: main.o response.o route.o
-	gcc -o ../bin/$(PROGRAM) main.o response.o route.o $(CFLAGS)
-
-main.o: main.c
-	gcc -c main.c
-
-response.o: response.c
-	gcc -c response.c
-
-route.o: route.c
-	gcc -c route.c
-
-.PHONY: clean
 clean:
-	rm -rf *.o ../bin/$(PROGRAM)
+	rm -f *.o $(TARGET)/$(PROGRAM)
