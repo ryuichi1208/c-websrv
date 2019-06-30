@@ -1,7 +1,9 @@
 #include "response.h"
+#include "route.h"
 
 void http(int sockfd) {
     int len;
+    int err;
     int read_fd;
     char buf[1024];
     char method[16];
@@ -14,6 +16,7 @@ void http(int sockfd) {
     }
     else {
         sscanf(buf, "%s %s %s", method, uri_addr, http_ver);
+        fprintf(stdout, "REQUEST : %s\n", buf);
 
         if (strcmp(method, "GET") != 0) {
             send_msg(sockfd, "501 Not implemented.");
@@ -22,9 +25,16 @@ void http(int sockfd) {
 
         uri_file = routing(uri_addr);
 
-        if ((read_fd = open(uri_file, O_RDONLY, 0666)) == -1) {
-             send_msg(sockfd, "404 Not Found");
-             close(read_fd);
+        read_fd = open(uri_file, O_RDONLY, 0666);
+        err = errno;
+        fprintf(stdout, "%d\n", err);
+        if (err == ENOENT) {
+            send_msg(sockfd, "404 Not Found\n");
+            goto END;
+        } else if (err == EPERM) {
+            send_msg(sockfd, "403 Forbidden\n");
+            goto END;
+
         }
 
         send_msg(sockfd, "HTTP/1.0 200 OK\r\n");
@@ -38,6 +48,7 @@ void http(int sockfd) {
             }
         }
 
+END:
         close(read_fd);
     }
 }

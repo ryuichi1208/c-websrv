@@ -4,7 +4,7 @@ char *routing(char *uri)
 {
     char *ret;
 
-    if (!strcmp(uri, "/")) {
+    if (strlen(uri) == 1) {
         ret = "index.html";
         return ret;
     }
