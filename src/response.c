@@ -5,7 +5,7 @@ void http(int sockfd) {
     int read_fd;
     char buf[1024];
     char method[16];
-    char uri_addr[256];
+    char uri_addr[128];
     char http_ver[64];
     char *uri_file;
 
@@ -20,10 +20,9 @@ void http(int sockfd) {
             close(read_fd);
         }
 
-        uri_file = uri_addr + 1;
-        fprintf(stdout, "uri_file:%s",uri_file);
+        uri_file = routing(uri_addr);
 
-        if ((read_fd = open("index.html", O_RDONLY, 0666)) == -1) {
+        if ((read_fd = open(uri_file, O_RDONLY, 0666)) == -1) {
              send_msg(sockfd, "404 Not Found");
              close(read_fd);
         }

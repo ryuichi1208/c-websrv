@@ -1,5 +1,6 @@
 #include "main.h"
 #include "response.h"
+#include "route.h"
 
 void http(int sockfd);
 int send_msg(int fd, char *msg);
@@ -14,10 +15,10 @@ int main(int argc, char **argv) {
     int writer_len;
     struct sockaddr_in reader_addr;
     struct sockaddr_in writer_addr;
-    
+
     if(getopts(argc, argv)) {
         fprintf(stderr, "invalid option¥n");
-        exit(1)
+        exit(1);
     }
 
     memset(&reader_addr, 0, sizeof(reader_addr));
