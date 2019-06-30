@@ -16,7 +16,6 @@ void http(int sockfd) {
     }
     else {
         sscanf(buf, "%s %s %s", method, uri_addr, http_ver);
-        fprintf(stdout, "REQUEST : %s\n", buf);
 
         if (strcmp(method, "GET") != 0) {
             send_msg(sockfd, "501 Not implemented.");
@@ -27,7 +26,6 @@ void http(int sockfd) {
 
         read_fd = open(uri_file, O_RDONLY, 0666);
         err = errno;
-        fprintf(stdout, "%d\n", err);
         if (err == ENOENT) {
             send_msg(sockfd, "404 Not Found\n");
             goto END;
