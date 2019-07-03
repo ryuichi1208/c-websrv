@@ -1,4 +1,4 @@
-#include "main.h"
+o#include "main.h"
 #include "response.h"
 #include "route.h"
 
@@ -14,7 +14,7 @@ opt_p* getopts(int argc, char **argv, opt_p *opts) {
     while ((opt = getopt(argc, argv, "fgp:")) != -1) {
         switch (opt) {
         case 'f':
-           break;
+           continue;
         case 'g':
             break;
         case 'p':
