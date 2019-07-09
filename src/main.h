@@ -16,10 +16,14 @@
 #define MAXPENDING 5
 #define HTTP_TCP_PORT 80
 #define HTTPS_TCP_PORT 443
+#define BUFLEN 1024
 #define _XOPEN_SOURCE 600
 #define _POSIX_C_SOURCE 200112L
 #undef _REENTRANT
 #define _GNU_SOURCE
+
+#ifndef NET_ATM_SIGNALING_H
+#define NET_ATM_SIGNALING_H
 
 #ifndef __MAIN
 typedef struct {
